@@ -1,6 +1,6 @@
 namespace Repository;
 
-public class AppDbContext
+public class DatabaseHelpers
 {
     
 }

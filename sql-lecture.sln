@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{D2206081-6E2E-4886-BEEF-CF81DF26DE33}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36705.20 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{D2206081-6E2E-4886-BEEF-CF81DF26DE33}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enitites", "Enitites\Enitites.csproj", "{C0761B9A-9AFF-447E-8A11-D87B752141E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{FDC413A0-BCE9-4C6E-98E1-D6FDCF77916F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{C0761B9A-9AFF-447E-8A11-D87B752141E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0761B9A-9AFF-447E-8A11-D87B752141E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0761B9A-9AFF-447E-8A11-D87B752141E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC413A0-BCE9-4C6E-98E1-D6FDCF77916F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC413A0-BCE9-4C6E-98E1-D6FDCF77916F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC413A0-BCE9-4C6E-98E1-D6FDCF77916F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC413A0-BCE9-4C6E-98E1-D6FDCF77916F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54C391E7-A7B5-4AC5-8CCF-3C8AB23A06A9}
 	EndGlobalSection
 EndGlobal
