@@ -9,12 +9,12 @@ public interface IRepository
     bool CreateSubject(Subject subject);
     
     // READ methods
-    Curriculum GetCurriculumByName(string curriculumName);
+    Curriculum? GetCurriculumByName(string curriculumName);
     List<Curriculum> GetAllCurriculums();
     List<Curriculum> GetCurriculumsBySubject(Guid subjectId);
-    Subject GetSubjectByName(string subjectName);
-    List<Curriculum> GetAllSubjects();
-    List<Curriculum> GetSubjectsByCurriculum(Guid curriculumId);
+    Subject? GetSubjectByName(string subjectName);
+    List<Subject> GetAllSubjects();
+    List<Subject> GetSubjectsByCurriculum(Guid curriculumId);
     
     // UPDATE methods
     bool UpdateCurriculum(Guid curriculumId, Curriculum curriculum);

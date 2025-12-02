@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{D2206081-6E2E-4886-BEEF-CF81DF26DE33}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{D2206081-6E2E-4886-BEEF-CF81DF26DE33}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enitites", "Enitites\Enitites.csproj", "{C0761B9A-9AFF-447E-8A11-D87B752141E3}"
 EndProject
