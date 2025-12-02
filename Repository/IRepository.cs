@@ -1,6 +1,28 @@
+using Domain;
+
 namespace Repository;
 
 public interface IRepository
 {
+    // CREATE methods
+    bool CreateCurriculum(Curriculum curriculum);
+    bool CreateSubject(Subject subject);
     
+    // READ methods
+    Curriculum GetCurriculumByName(string curriculumName);
+    List<Curriculum> GetAllCurriculums();
+    List<Curriculum> GetCurriculumsBySubject(Guid subjectId);
+    Subject GetSubjectByName(string subjectName);
+    List<Curriculum> GetAllSubjects();
+    List<Curriculum> GetSubjectsByCurriculum(Guid curriculumId);
+    
+    // UPDATE methods
+    bool UpdateCurriculum(Guid curriculumId, Curriculum curriculum);
+    bool UpdateSubject(Guid subjectId, Subject subject);
+    bool AddSubjectToCurriculum(Guid curriculumId, Guid subjectId);
+    bool RemoveSubjectFromCurriculum(Guid curriculumId, Guid subjectId);
+    
+    // DELETE methods
+    bool DeleteCurriculum(Guid curriculumId);
+    bool DeleteSubject(Guid subjectId);
 }
