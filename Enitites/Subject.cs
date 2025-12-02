@@ -1,4 +1,6 @@
-﻿namespace Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain;
 
 public class Subject : BaseEntity
 {
@@ -8,4 +10,15 @@ public class Subject : BaseEntity
     public string? TeacherName { get; set; }
     public int EapVolume { get; set; }
     public EAssessmentForm AssessmentForm { get; set; } = EAssessmentForm.Exam;
+
+    [NotMapped]
+    public string AssessmentFormText
+        => AssessmentForm switch
+        {
+            EAssessmentForm.Exam => "Eksam",
+            EAssessmentForm.Test => "Kontrolltöö",
+            EAssessmentForm.Task => "Hindeline ülesanne",
+            EAssessmentForm.Practice => "Praktiline ülesanne",
+            _ => "Tundmatu"
+        };
 }

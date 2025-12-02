@@ -5,8 +5,178 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="TalTech ÕIS v0.1 :)" Height="450" Width="1160">
     <Grid>
-
+        <StackPanel Name="pnlInitialView">
+            <TabControl>
+                <TabItem Header="Õppekavad">
+                    <Grid Margin="10" Height="370">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Õppekavade loetelu" FontSize="18" FontWeight="Bold"/>
+                        <ListView Grid.Row="1" ItemsSource="{Binding Curriculums}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Õppekava nimi" DisplayMemberBinding="{Binding EtName}" Width="250"/>
+                                    <GridViewColumn Header="Õppekava nimi (EN)" DisplayMemberBinding="{Binding EnName}" Width="250"/>
+                                    <GridViewColumn Header="Õppekava kood" DisplayMemberBinding="{Binding Code}" Width="90"/>
+                                    <GridViewColumn Header="Programmijuht" DisplayMemberBinding="{Binding ManagerName}" Width="190"/>
+                                    <GridViewColumn Header="Õppetase" DisplayMemberBinding="{Binding StudyLevelText}" Width="110"/>
+                                    <GridViewColumn Header="Õppekava maht (EAP)" DisplayMemberBinding="{Binding EapVolume}" Width="140"/>
+                                    <GridViewColumn Header="Õppetöö keel" DisplayMemberBinding="{Binding Language}" Width="90"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Grid.Row="2" Width="150" Height="30" HorizontalAlignment="Right" Name="btnÓpenAddCurriculumView" Content="Lisa õppekava" Click="btnÓpenAddCurriculumView_Click"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Õppeained">
+                    <Grid Margin="10" Height="365">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Õppeainete loetelu" FontSize="18" FontWeight="Bold"/>
+                        <ListView Grid.Row="1" ItemsSource="{Binding Subjects}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Õppeaine nimi" DisplayMemberBinding="{Binding EtName}" Width="250"/>
+                                    <GridViewColumn Header="Õppeaine nimi (EN)" DisplayMemberBinding="{Binding EnName}" Width="250" />
+                                    <GridViewColumn Header="Õppeaine kood" DisplayMemberBinding="{Binding Code}" Width="90"/>
+                                    <GridViewColumn Header="Õppejõud" DisplayMemberBinding="{Binding TeacherName}" Width="250"/>
+                                    <GridViewColumn Header="Õppeaine maht (EAP)" DisplayMemberBinding="{Binding EapVolume}" Width="140" />
+                                    <GridViewColumn Header="Hindamisvorm" DisplayMemberBinding="{Binding AssessmentFormText}" Width="140" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Grid.Row="2" Width="150" Height="30" HorizontalAlignment="Right" Name="btnOpenAddSubjectView" Content="Lisa õppeaine" Click="btnOpenAddSubjectView_Click"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+        <StackPanel Name="pnlEditCurriculumView" Visibility="Hidden">
+            <Grid Margin="10" Height="365">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Õppekava muutmine" FontSize="18" FontWeight="Bold"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding Curriculums}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Õppeaine nimi" DisplayMemberBinding="{Binding EtName}" Width="250"/>
+                            <GridViewColumn Header="Õppeaine nimi (EN)" DisplayMemberBinding="{Binding EnName}" Width="250" />
+                            <GridViewColumn Header="Õppeaine kood" DisplayMemberBinding="{Binding Code}" Width="90"/>
+                            <GridViewColumn Header="Õppejõud" DisplayMemberBinding="{Binding TeacherName}" Width="250"/>
+                            <GridViewColumn Header="Õppeaine maht (EAP)" DisplayMemberBinding="{Binding EapVolume}" Width="140" />
+                            <GridViewColumn Header="Hindamisvorm" DisplayMemberBinding="{Binding AssessmentForm}" Width="140" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Grid.Row="2" Height="30" HorizontalAlignment="Left"
+                        Click="lnkGoHome_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        Background="Transparent" BorderThickness="0">
+                    <Label>
+                        <Underline>Tagasi avalehele</Underline>
+                    </Label>
+                </Button>
+                <Button Grid.Row="2" Width="150" Height="30" HorizontalAlignment="Right" Name="btnEditCurriculum" Content="Muuda õppekava"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Name="pnlAddCurriculumView" Visibility="Hidden">
+            <Grid Margin="10" Height="365">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Õppekava lisamine" FontSize="18" FontWeight="Bold"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding Curriculums}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Õppeaine nimi" DisplayMemberBinding="{Binding EtName}" Width="250"/>
+                            <GridViewColumn Header="Õppeaine nimi (EN)" DisplayMemberBinding="{Binding EnName}" Width="250" />
+                            <GridViewColumn Header="Õppeaine kood" DisplayMemberBinding="{Binding Code}" Width="90"/>
+                            <GridViewColumn Header="Õppejõud" DisplayMemberBinding="{Binding TeacherName}" Width="250"/>
+                            <GridViewColumn Header="Õppeaine maht (EAP)" DisplayMemberBinding="{Binding EapVolume}" Width="140" />
+                            <GridViewColumn Header="Hindamisvorm" DisplayMemberBinding="{Binding AssessmentForm}" Width="140" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Grid.Row="2" Height="30" HorizontalAlignment="Left"
+                        Click="lnkGoHome_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        Background="Transparent" BorderThickness="0">
+                    <Label>
+                        <Underline>Tagasi avalehele</Underline>
+                    </Label>
+                </Button>
+                <Button Grid.Row="2" Width="150" Height="30" HorizontalAlignment="Right" Name="btnAddCurriculum" Content="Lisa õppekava"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Name="pnlEditSubjectView" Visibility="Hidden">
+            <Grid Margin="10" Height="365">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Õppeaine muutmine" FontSize="18" FontWeight="Bold"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding Curriculums}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Õppeaine nimi" DisplayMemberBinding="{Binding EtName}" Width="250"/>
+                            <GridViewColumn Header="Õppeaine nimi (EN)" DisplayMemberBinding="{Binding EnName}" Width="250" />
+                            <GridViewColumn Header="Õppeaine kood" DisplayMemberBinding="{Binding Code}" Width="90"/>
+                            <GridViewColumn Header="Õppejõud" DisplayMemberBinding="{Binding TeacherName}" Width="250"/>
+                            <GridViewColumn Header="Õppeaine maht (EAP)" DisplayMemberBinding="{Binding EapVolume}" Width="140" />
+                            <GridViewColumn Header="Hindamisvorm" DisplayMemberBinding="{Binding AssessmentForm}" Width="140" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Grid.Row="2" Height="30" HorizontalAlignment="Left"
+                        Click="lnkGoHome_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        Background="Transparent" BorderThickness="0">
+                    <Label>
+                        <Underline>Tagasi avalehele</Underline>
+                    </Label>
+                </Button>
+                <Button Grid.Row="2" Width="150" Height="30" HorizontalAlignment="Right" Name="btnEditSubject" Content="Muuda õppeainet"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Name="pnlAddSubjectView" Visibility="Hidden">
+            <Grid Margin="10" Height="365">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Õppeaine lisamine" FontSize="18" FontWeight="Bold"/>
+                <ListView Grid.Row="1" ItemsSource="{Binding Curriculums}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Õppeaine nimi" DisplayMemberBinding="{Binding EtName}" Width="250"/>
+                            <GridViewColumn Header="Õppeaine nimi (EN)" DisplayMemberBinding="{Binding EnName}" Width="250" />
+                            <GridViewColumn Header="Õppeaine kood" DisplayMemberBinding="{Binding Code}" Width="90"/>
+                            <GridViewColumn Header="Õppejõud" DisplayMemberBinding="{Binding TeacherName}" Width="250"/>
+                            <GridViewColumn Header="Õppeaine maht (EAP)" DisplayMemberBinding="{Binding EapVolume}" Width="140" />
+                            <GridViewColumn Header="Hindamisvorm" DisplayMemberBinding="{Binding AssessmentForm}" Width="140" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Grid.Row="2" Height="30" HorizontalAlignment="Left"
+                        Click="lnkGoHome_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                        Background="Transparent" BorderThickness="0">
+                    <Label>
+                        <Underline>Tagasi avalehele</Underline>
+                    </Label>
+                </Button>
+                <Button Grid.Row="2" Width="150" Height="30" HorizontalAlignment="Right" Name="btnAddSubject" Content="Lisa õppeaine"/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

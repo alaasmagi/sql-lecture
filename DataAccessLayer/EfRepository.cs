@@ -15,10 +15,10 @@ public class EfRepository(AppDbContext db) : IRepository
         return db.SaveChanges() > 0;
     }
 
-    public Curriculum? GetCurriculumByName(string curriculumName)
+    public Curriculum? GetCurriculumById(Guid curriculumId)
     {
         return db.Curriculums
-            .FirstOrDefault(c => c.EnName == curriculumName || c.EtName == curriculumName);
+            .FirstOrDefault(c => c.Id == curriculumId || c.Id == curriculumId);
     }
 
     public List<Curriculum> GetAllCurriculums()
@@ -37,10 +37,10 @@ public class EfRepository(AppDbContext db) : IRepository
             .ToList();
     }
 
-    public Subject? GetSubjectByName(string subjectName)
+    public Subject? GetSubjectById(Guid subjectId)
     {
         return db.Subjects
-            .FirstOrDefault(s => s.EnName == subjectName || s.EtName == subjectName);
+            .FirstOrDefault(s => s.Id == subjectId || s.Id == subjectId);
     }
 
     public List<Subject> GetAllSubjects()

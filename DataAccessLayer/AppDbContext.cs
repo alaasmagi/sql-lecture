@@ -3,8 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext : DbContext
 {
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+    {
+    }
     public DbSet<Curriculum> Curriculums { get; set; }
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<CurriculumSubject> CurriculumSubjects { get; set; }
@@ -14,7 +18,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         base.OnModelCreating(modelBuilder);
 
         // Initial configurations
-        modelBuilder.ApplyConfiguration(new BaseEntityConfig());
         modelBuilder.ApplyConfiguration(new CurriculumConfig());
         modelBuilder.ApplyConfiguration(new SubjectConfig());
         modelBuilder.ApplyConfiguration(new CurriculumSubjectConfig());

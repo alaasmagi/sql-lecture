@@ -24,7 +24,7 @@ public class SqlRepository(string connectionString) : IRepository
 
         cmd.Parameters.AddWithValue("$id", curriculum.Id.ToString());
         cmd.Parameters.AddWithValue("$code", curriculum.Code);
-        cmd.Parameters.AddWithValue("$sl", curriculum.EStudyLevel);
+        cmd.Parameters.AddWithValue("$sl", curriculum.StudyLevel);
         cmd.Parameters.AddWithValue("$et", curriculum.EtName);
         cmd.Parameters.AddWithValue("$en", curriculum.EnName);
         cmd.Parameters.AddWithValue("$mgr", curriculum.ManagerName ?? (object)DBNull.Value);
@@ -68,17 +68,14 @@ public class SqlRepository(string connectionString) : IRepository
         return cmd.ExecuteNonQuery() > 0;
     }
 
-    // ---------------------------------------------------------
-    // READ METHODS
-    // ---------------------------------------------------------
-    public Curriculum? GetCurriculumByName(string name)
+    public Curriculum? GetCurriculumById(Guid curriculumId)
     {
-        const string sql = "SELECT * FROM curriculums WHERE name_et = $name OR name_en = $name";
+        const string sql = "SELECT * FROM curriculums WHERE id = $id";
 
         using var conn = GetConnection();
         using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$name", name);
+        cmd.Parameters.AddWithValue("$id", curriculumId);
 
         conn.Open();
         using var reader = cmd.ExecuteReader();
@@ -126,14 +123,14 @@ public class SqlRepository(string connectionString) : IRepository
         return list;
     }
 
-    public Subject? GetSubjectByName(string name)
+    public Subject? GetSubjectById(Guid subjectId)
     {
-        const string sql = "SELECT * FROM subjects WHERE name_et = $name OR name_en = $name";
+        const string sql = "SELECT * FROM subjects WHERE id = $id";
 
         using var conn = GetConnection();
         using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$name", name);
+        cmd.Parameters.AddWithValue("$id", subjectId);
 
         conn.Open();
         using var reader = cmd.ExecuteReader();
@@ -142,7 +139,19 @@ public class SqlRepository(string connectionString) : IRepository
 
     public List<Subject> GetAllSubjects()
     {
-        throw new Exception("Interface error: method returns List<Curriculum> but should return List<Subject>");
+        const string sql = "SELECT * FROM subjects";
+
+        using var conn = GetConnection();
+        using var cmd = new SqliteCommand(sql, conn);
+
+        conn.Open();
+        using var reader = cmd.ExecuteReader();
+
+        var list = new List<Subject>();
+        while (reader.Read())
+            list.Add(MapSubject(reader));
+
+        return list;
     }
 
     public List<Subject> GetSubjectsByCurriculum(Guid curriculumId)
@@ -184,7 +193,7 @@ public class SqlRepository(string connectionString) : IRepository
 
         cmd.Parameters.AddWithValue("$id", curriculumId.ToString());
         cmd.Parameters.AddWithValue("$code", c.Code);
-        cmd.Parameters.AddWithValue("$sl", (int)c.EStudyLevel);
+        cmd.Parameters.AddWithValue("$sl", (int)c.StudyLevel);
         cmd.Parameters.AddWithValue("$et", c.EtName);
         cmd.Parameters.AddWithValue("$en", c.EnName);
         cmd.Parameters.AddWithValue("$mgr", c.ManagerName ?? (object)DBNull.Value);
@@ -292,7 +301,7 @@ public class SqlRepository(string connectionString) : IRepository
             Id = Guid.Parse(r.GetString(r.GetOrdinal("id"))),
 
             Code = r.GetString(r.GetOrdinal("code")),
-            EStudyLevel = (EStudyLevel)r.GetInt32(r.GetOrdinal("study_level")),
+            StudyLevel = (EStudyLevel)r.GetInt32(r.GetOrdinal("study_level")),
             EtName = r.GetString(r.GetOrdinal("name_et")),
             EnName = r.GetString(r.GetOrdinal("name_en")),
 

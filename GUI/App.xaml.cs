@@ -11,7 +11,7 @@ namespace GUI
     /// </summary>
     public partial class App : Application
     {
-        public static IServiceProvider Services { get; private set; }
+        public static IServiceProvider? Services { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -20,14 +20,16 @@ namespace GUI
             var directory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var dbPath = Path.Combine(directory, "uni.db");
 
-            // EF Core
+            // EF setup
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite($"Data Source={dbPath}"));
+
+            // Uncomment this to use EF
             services.AddScoped<IRepository, EfRepository>();
 
-            // Raw SQL
-            services.AddScoped<SqlRepository>(sp =>
-                new SqlRepository($"Data Source={dbPath}"));
+            // Uncomment this to use raw SQL
+            /*services.AddScoped<IRepository, SqlRepository>(sp =>
+                new SqlRepository($"Data Source={dbPath}"));*/
 
             Services = services.BuildServiceProvider();
 
