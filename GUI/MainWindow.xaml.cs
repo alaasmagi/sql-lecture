@@ -137,6 +137,75 @@ namespace GUI
             pnlInitialView.Visibility = Visibility.Visible;
         }
 
+        private void btnEditCurriculum_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ViewModel;
+            if (vm == null) return;
+
+            var curriculumToEdit = vm.CurrentCurriculum;
+
+            repository.UpdateCurriculum(curriculumToEdit.Id, curriculumToEdit);
+
+            LoadInitialData();
+            HideAllPanels();
+            pnlInitialView.Visibility = Visibility.Visible;
+        }
+
+        private void btnDeleteCurriculum_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ViewModel;
+            if (vm == null) return;
+
+            var curriculumToDelete = vm.CurrentCurriculum;
+
+            repository.DeleteCurriculum(curriculumToDelete.Id);
+
+            LoadInitialData();
+            HideAllPanels();
+            pnlInitialView.Visibility = Visibility.Visible;
+        }
+
+        private void btnAddSubject_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ViewModel;
+            if (vm == null) return;
+
+            var newSubject = vm.CurrentSubject;
+
+            repository.CreateSubject(newSubject);
+
+            LoadInitialData();
+            HideAllPanels();
+            pnlInitialView.Visibility = Visibility.Visible;
+        }
+
+        private void btnEditSubject_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ViewModel;
+            if (vm == null) return;
+
+            var subjectToEdit = vm.CurrentSubject;
+
+            repository.UpdateSubject(subjectToEdit.Id, subjectToEdit);
+
+            LoadInitialData();
+            HideAllPanels();
+            pnlInitialView.Visibility = Visibility.Visible;
+        }
+        private void btnDeleteSubject_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ViewModel;
+            if (vm == null) return;
+
+            var subjectToDelete = vm.CurrentSubject;
+
+            repository.DeleteSubject(subjectToDelete.Id);
+
+            LoadInitialData();
+            HideAllPanels();
+            pnlInitialView.Visibility = Visibility.Visible;
+        }
+
         private void lnkGoHome_Click(object sender, RoutedEventArgs e)
         {
             HideAllPanels();

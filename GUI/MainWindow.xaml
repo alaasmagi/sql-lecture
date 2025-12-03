@@ -35,7 +35,7 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Õppeained">
-                    <Grid Margin="10" Height="365">
+                    <Grid Margin="10" Height="370">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
@@ -60,11 +60,11 @@
             </TabControl>
         </StackPanel>
         <StackPanel Name="pnlEditCurriculumView" Visibility="Hidden">
-            <Grid Margin="10" Height="420">
+            <Grid Margin="10" Height="370">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition/>
                     <RowDefinition Height="80"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250"/>
@@ -122,15 +122,28 @@
                         <Underline>Tagasi avalehele</Underline>
                     </Label>
                 </Button>
-                <Button Grid.Row="2" Grid.Column="1"  Width="150" Height="30" HorizontalAlignment="Right" Name="btnEditCurriculum" Content="Muuda õppekava"/>
+                <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Height="30"
+                            Click="btnDeleteCurriculum_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                            Background="Transparent" BorderThickness="0">
+                        <Label>
+                            <Underline>Kustuta õppekava</Underline>
+                        </Label>
+                    </Button>
+                    <Button Grid.Row="1" Height="30" Click="btnEditCurriculum_Click" Content="Muuda õppekava"/>
+                </Grid>
             </Grid>
         </StackPanel>
         <StackPanel Name="pnlAddCurriculumView" Visibility="Hidden">
-            <Grid Margin="10" Height="420">
+            <Grid Margin="10" Height="370">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition/>
                     <RowDefinition Height="80"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250"/>
@@ -192,11 +205,11 @@
             </Grid>
         </StackPanel>
         <StackPanel Name="pnlEditSubjectView" Visibility="Hidden">
-            <Grid Margin="10" Height="420">
+            <Grid Margin="0, 0, 0, 0" Height="370">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition/>
                     <RowDefinition Height="80"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250"/>
@@ -228,10 +241,10 @@
                     <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.Code}" />
                     <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Õppejõud:" VerticalAlignment="Center"/>
                     <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.TeacherName}" />
-                    <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine maht (EAP):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EapVolume}" />
-                    <Label Grid.Row="4" Grid.Column="1" Margin="0,0,0,5" Content="Hindamisvorm:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding AssessmentForms}" SelectedValuePath="Key" SelectedValue="{Binding CurrentSubject.AssessmentForm, Mode=TwoWay}">
+                    <Label Grid.Row="4" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine maht (EAP):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EapVolume}" />
+                    <Label Grid.Row="5" Grid.Column="1" Margin="0,0,0,5" Content="Hindamisvorm:" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Row="5" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding AssessmentForms}" SelectedValuePath="Key" SelectedValue="{Binding CurrentSubject.AssessmentForm, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}" />
@@ -246,15 +259,28 @@
                         <Underline>Tagasi avalehele</Underline>
                     </Label>
                 </Button>
-                <Button Grid.Row="2" Grid.Column="1"  Width="150" Height="30" HorizontalAlignment="Right" Name="btnEditSubject" Content="Muuda õppeainet"/>
+                <Grid Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Height="30"
+                            Click="btnDeleteSubject_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                            Background="Transparent" BorderThickness="0">
+                        <Label>
+                            <Underline>Kustuta õppeaine</Underline>
+                        </Label>
+                    </Button>
+                    <Button Grid.Row="1" Height="30" Click="btnEditSubject_Click" Content="Muuda õppeainet"/>
+                </Grid>
             </Grid>
         </StackPanel>
         <StackPanel Name="pnlAddSubjectView" Visibility="Hidden">
-            <Grid Margin="10" Height="420">
+            <Grid Margin="10" Height="370">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition/>
                     <RowDefinition Height="80"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250"/>
@@ -286,10 +312,10 @@
                     <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.Code}" />
                     <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Õppejõud:" VerticalAlignment="Center"/>
                     <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.TeacherName}" />
-                    <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine maht (EAP):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EapVolume}" />
-                    <Label Grid.Row="4" Grid.Column="1" Margin="0,0,0,5" Content="Hindamisvorm:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding AssessmentForms}" SelectedValuePath="Key" SelectedValue="{Binding CurrentSubject.AssessmentForm, Mode=TwoWay}">
+                    <Label Grid.Row="4" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine maht (EAP):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EapVolume}" />
+                    <Label Grid.Row="5" Grid.Column="1" Margin="0,0,0,5" Content="Hindamisvorm:" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Row="5" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding AssessmentForms}" SelectedValuePath="Key" SelectedValue="{Binding CurrentSubject.AssessmentForm, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}" />
@@ -304,7 +330,7 @@
                         <Underline>Tagasi avalehele</Underline>
                     </Label>
                 </Button>
-                <Button Grid.Row="2" Grid.Column="1"  Width="150" Height="30" HorizontalAlignment="Right" Name="btnAddSubject" Content="Lisa õppeaine"/>
+                <Button Grid.Row="2" Grid.Column="1"  Width="150" Height="30" HorizontalAlignment="Right" Name="btnAddSubject" Click="btnAddSubject_Click" Content="Lisa õppeaine"/>
             </Grid>
         </StackPanel>
         <ComboBox HorizontalAlignment="Left" Margin="1240,105,0,0" VerticalAlignment="Top" Width="120"/>
