@@ -89,15 +89,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,5" Content="Õppekava nimi:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EtName}" />
+                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.EtName}" />
                     <Label Grid.Row="1" Grid.Column="1" Margin="0,0,0,5" Content="Õppekava nimi (EN):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EnName}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.EnName}" />
                     <Label Grid.Row="2" Grid.Column="1" Margin="0,0,0,5" Content="Õppekava kood:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding Code}" />
+                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.Code}" />
                     <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Programmijuht:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding ManagerName}" />
+                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.ManagerName}" />
                     <Label Grid.Row="4" Grid.Column="1" Margin="0,0,0,5" Content="Õppetase:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding StudyLevels}" SelectedValuePath="Key" SelectedValue="{Binding SelectedStudyLevel, Mode=TwoWay}">
+                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding StudyLevels}" SelectedValuePath="Key" SelectedValue="{Binding CurrentCurriculum.StudyLevel, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}" />
@@ -105,9 +105,9 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <Label Grid.Row="5" Grid.Column="1" Margin="0,0,0,5" Content="Õppekava maht (EAP):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EapVolume}" />
+                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.EapVolume}" />
                     <Label Grid.Row="6" Grid.Column="1" Margin="0,0,0,5" Content="Õppetöö keel:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="6" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding Languages}" SelectedValuePath="Key" SelectedValue="{Binding SelectedLanguage, Mode=TwoWay}">
+                    <ComboBox Grid.Row="6" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding Languages}" SelectedValuePath="Key" SelectedValue="{Binding CurrentCurriculum.Language, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}" />
@@ -155,15 +155,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,5" Content="Õppekava nimi:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EtName}" />
+                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.EtName}" />
                     <Label Grid.Row="1" Grid.Column="1" Margin="0,0,0,5" Content="Õppekava nimi (EN):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EnName}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.EnName}" />
                     <Label Grid.Row="2" Grid.Column="1" Margin="0,0,0,5" Content="Õppekava kood:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding Code}" />
+                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.Code}" />
                     <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Programmijuht:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding ManagerName}" />
+                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.ManagerName}" />
                     <Label Grid.Row="4" Grid.Column="1" Margin="0,0,0,5" Content="Õppetase:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding StudyLevels}" SelectedValuePath="Key" SelectedValue="{Binding SelectedStudyLevel, Mode=TwoWay}">
+                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding StudyLevels}" SelectedValuePath="Key" SelectedValue="{Binding CurrentCurriculum.StudyLevel, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}" />
@@ -171,9 +171,9 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                     <Label Grid.Row="5" Grid.Column="1" Margin="0,0,0,5" Content="Õppekava maht (EAP):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EapVolume}" />
+                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentCurriculum.EapVolume}" />
                     <Label Grid.Row="6" Grid.Column="1" Margin="0,0,0,5" Content="Õppetöö keel:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="6" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding Languages}" SelectedValuePath="Key" SelectedValue="{Binding SelectedLanguage, Mode=TwoWay}">
+                    <ComboBox Grid.Row="6" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding Languages}" SelectedValuePath="Key" SelectedValue="{Binding CurrentCurriculum.Language, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}"/>
@@ -221,17 +221,17 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine nimi:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EtName}" />
+                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EtName}" />
                     <Label Grid.Row="1" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine nimi (EN):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EnName}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EnName}" />
                     <Label Grid.Row="2" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine kood:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding Code}" />
+                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.Code}" />
                     <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Õppejõud:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding TeacherName}" />
+                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.TeacherName}" />
                     <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine maht (EAP):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EapVolume}" />
+                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EapVolume}" />
                     <Label Grid.Row="4" Grid.Column="1" Margin="0,0,0,5" Content="Hindamisvorm:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding AssessmentForms}" SelectedValuePath="Key" SelectedValue="{Binding SelectedAssessmentForm, Mode=TwoWay}">
+                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding AssessmentForms}" SelectedValuePath="Key" SelectedValue="{Binding CurrentSubject.AssessmentForm, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}" />
@@ -279,17 +279,17 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine nimi:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EtName}" />
+                    <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EtName}" />
                     <Label Grid.Row="1" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine nimi (EN):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EnName}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EnName}" />
                     <Label Grid.Row="2" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine kood:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding Code}" />
+                    <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.Code}" />
                     <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Õppejõud:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding TeacherName}" />
+                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.TeacherName}" />
                     <Label Grid.Row="3" Grid.Column="1" Margin="0,0,0,5" Content="Õppeaine maht (EAP):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding EapVolume}" />
+                    <TextBox Grid.Row="3" Grid.Column="2" Margin="0,0,0,5" Text="{Binding CurrentSubject.EapVolume}" />
                     <Label Grid.Row="4" Grid.Column="1" Margin="0,0,0,5" Content="Hindamisvorm:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding AssessmentForms}" SelectedValuePath="Key" SelectedValue="{Binding SelectedAssessmentForm, Mode=TwoWay}">
+                    <ComboBox Grid.Row="4" Grid.Column="2" Margin="0,0,0,5" ItemsSource="{Binding AssessmentForms}" SelectedValuePath="Key" SelectedValue="{Binding CurrentSubject.AssessmentForm, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}" />

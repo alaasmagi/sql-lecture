@@ -24,25 +24,33 @@ namespace GUI
         {
             repository = App.Services.GetRequiredService<IRepository>();
             InitializeComponent();
-            LoadAllData();
+            LoadInitialData();
         }
 
-        private void LoadAllData()
+        public void LoadInitialData()
         {
             DataContext = new ViewModel
             {
                 Languages = Enum.GetValues(typeof(ELanguage))
-                                .Cast<ELanguage>()
-                                .Select(l => new KeyValuePair<ELanguage, string>(l, Helpers.GetLanguageAsText(l)))
-                                .ToList(),
-                SelectedLanguage = ELanguage.Estonian,
+                               .Cast<ELanguage>()
+                               .Select(l => new KeyValuePair<ELanguage, string>(l, Helpers.GetLanguageAsText(l)))
+                               .ToList(),
                 StudyLevels = Enum.GetValues(typeof(EStudyLevel))
-                                .Cast<EStudyLevel>()
-                                .Select(l => new KeyValuePair<EStudyLevel, string>(l, Helpers.GetStudyLevelAsText(l)))
-                                .ToList(),
-                SelectedStudyLevel = EStudyLevel.Bachelors,
+                               .Cast<EStudyLevel>()
+                               .Select(l => new KeyValuePair<EStudyLevel, string>(l, Helpers.GetStudyLevelAsText(l)))
+                               .ToList(),
+                AssessmentForms = Enum.GetValues(typeof(EAssessmentForm))
+                               .Cast<EAssessmentForm>()
+                               .Select(a => new KeyValuePair<EAssessmentForm, string>(a, Helpers.GetAssessmentFormAsText(a)))
+                               .ToList(),
+                
                 Curriculums = repository.GetAllCurriculums(),
-                Subjects = repository.GetAllSubjects()
+                CurrentCurriculum = null,
+                CurrentCurriculumSubjects = null,
+
+                Subjects = repository.GetAllSubjects(),
+                CurrentSubject = null,
+                CurrentSubjectCurriculums = null,
             };
         }
 
@@ -69,12 +77,34 @@ namespace GUI
 
         private void lwCurriculumsDoubleClick(object sender, RoutedEventArgs e)
         {
+            var vm = DataContext as ViewModel;
+            if (vm == null)
+                return;
+
+            var selected = lwCurriculums.SelectedItem as Curriculum;
+            if (selected == null)
+                return;
+
+            vm.CurrentCurriculum = selected;
+            pnlEditCurriculumView.DataContext = vm;
+
             HideAllPanels();
             pnlEditCurriculumView.Visibility = Visibility.Visible;
         }
 
         private void lwSubjectsDoubleClick(object sender, RoutedEventArgs e)
         {
+            var vm = DataContext as ViewModel;
+            if (vm == null)
+                return;
+
+            var selected = lwSubjects.SelectedItem as Subject;
+            if (selected == null)
+                return;
+
+            vm.CurrentSubject = selected;
+            pnlEditSubjectView.DataContext = vm;
+
             HideAllPanels();
             pnlEditSubjectView.Visibility = Visibility.Visible;
         }
