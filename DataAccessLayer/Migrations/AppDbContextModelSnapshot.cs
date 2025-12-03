@@ -52,9 +52,8 @@ namespace Repository.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("name_et");
 
-                    b.Property<string>("Language")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
+                    b.Property<int>("Language")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("language");
 
                     b.Property<string>("ManagerName")

@@ -309,7 +309,7 @@ public class SqlRepository(string connectionString) : IRepository
                 ? null
                 : r.GetString(r.GetOrdinal("manager_name")),
 
-            Language = r.GetString(r.GetOrdinal("language")),
+            Language = (ELanguage)r.GetInt32(r.GetOrdinal("language")),
             EapVolume = r.GetInt32(r.GetOrdinal("eap_volume")),
 
             CreatedBy = r.GetString(r.GetOrdinal("created_by")),

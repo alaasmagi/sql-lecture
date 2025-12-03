@@ -30,6 +30,7 @@ namespace GUI
         {
             DataContext = new
             {
+
                 Curriculums = repository.GetAllCurriculums(),
                 Subjects = repository.GetAllSubjects()
             };

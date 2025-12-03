@@ -13,12 +13,5 @@ public class Subject : BaseEntity
 
     [NotMapped]
     public string AssessmentFormText
-        => AssessmentForm switch
-        {
-            EAssessmentForm.Exam => "Eksam",
-            EAssessmentForm.Test => "Kontrolltöö",
-            EAssessmentForm.Task => "Hindeline ülesanne",
-            EAssessmentForm.Practice => "Praktiline ülesanne",
-            _ => "Tundmatu"
-        };
+        => Helpers.GetAssessmentFormAsText(AssessmentForm);
 }
