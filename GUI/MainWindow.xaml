@@ -188,7 +188,7 @@
                         <Underline>Tagasi avalehele</Underline>
                     </Label>
                 </Button>
-                <Button Grid.Row="2" Grid.Column="1"  Width="150" Height="30" HorizontalAlignment="Right" Name="btnAddCurriculum" Content="Lisa õppekava"/>
+                <Button Grid.Row="2" Grid.Column="1"  Width="150" Height="30" HorizontalAlignment="Right" Name="btnAddCurriculum" Click="btnAddCurriculum_Click" Content="Lisa õppekava"/>
             </Grid>
         </StackPanel>
         <StackPanel Name="pnlEditSubjectView" Visibility="Hidden">

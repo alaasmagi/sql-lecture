@@ -65,12 +65,26 @@ namespace GUI
 
         private void btnÓpenAddCurriculumView_Click(object sender, RoutedEventArgs e)
         {
+            var vm = DataContext as ViewModel;
+            if (vm == null)
+                return;
+
+            vm.CurrentCurriculum = new Curriculum();
+            pnlAddCurriculumView.DataContext = vm;
+
             HideAllPanels();
             pnlAddCurriculumView.Visibility = Visibility.Visible;
         }
 
         private void btnOpenAddSubjectView_Click(object sender, RoutedEventArgs e)
         {
+            var vm = DataContext as ViewModel;
+            if (vm == null)
+                return;
+
+            vm.CurrentSubject = new Subject();
+            pnlAddCurriculumView.DataContext = vm;
+
             HideAllPanels();
             pnlAddSubjectView.Visibility = Visibility.Visible;
         }
@@ -107,6 +121,20 @@ namespace GUI
 
             HideAllPanels();
             pnlEditSubjectView.Visibility = Visibility.Visible;
+        }
+
+        private void btnAddCurriculum_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ViewModel;
+            if (vm == null) return;
+
+            var newCurriculum = vm.CurrentCurriculum;
+
+            repository.CreateCurriculum(newCurriculum);
+
+            LoadInitialData();
+            HideAllPanels();
+            pnlInitialView.Visibility = Visibility.Visible;
         }
 
         private void lnkGoHome_Click(object sender, RoutedEventArgs e)
