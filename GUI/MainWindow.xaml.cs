@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Domain;
+using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using System.Text;
 using System.Windows;
@@ -28,9 +29,18 @@ namespace GUI
 
         private void LoadAllData()
         {
-            DataContext = new
+            DataContext = new ViewModel
             {
-
+                Languages = Enum.GetValues(typeof(ELanguage))
+                                .Cast<ELanguage>()
+                                .Select(l => new KeyValuePair<ELanguage, string>(l, Helpers.GetLanguageAsText(l)))
+                                .ToList(),
+                SelectedLanguage = ELanguage.Estonian,
+                StudyLevels = Enum.GetValues(typeof(EStudyLevel))
+                                .Cast<EStudyLevel>()
+                                .Select(l => new KeyValuePair<EStudyLevel, string>(l, Helpers.GetStudyLevelAsText(l)))
+                                .ToList(),
+                SelectedStudyLevel = EStudyLevel.Bachelors,
                 Curriculums = repository.GetAllCurriculums(),
                 Subjects = repository.GetAllSubjects()
             };
@@ -41,8 +51,8 @@ namespace GUI
             pnlInitialView.Visibility = Visibility.Hidden;
             pnlAddCurriculumView.Visibility = Visibility.Hidden;
             pnlAddSubjectView.Visibility = Visibility.Hidden;
-            pnlEditCurriculumView.Visibility= Visibility.Hidden;
-            pnlEditSubjectView.Visibility= Visibility.Hidden;
+            pnlEditCurriculumView.Visibility = Visibility.Hidden;
+            pnlEditSubjectView.Visibility = Visibility.Hidden;
         }
 
         private void btnÓpenAddCurriculumView_Click(object sender, RoutedEventArgs e)
