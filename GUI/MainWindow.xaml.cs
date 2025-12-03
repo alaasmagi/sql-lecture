@@ -67,6 +67,18 @@ namespace GUI
             pnlAddSubjectView.Visibility = Visibility.Visible;
         }
 
+        private void lwCurriculumsDoubleClick(object sender, RoutedEventArgs e)
+        {
+            HideAllPanels();
+            pnlEditCurriculumView.Visibility = Visibility.Visible;
+        }
+
+        private void lwSubjectsDoubleClick(object sender, RoutedEventArgs e)
+        {
+            HideAllPanels();
+            pnlEditSubjectView.Visibility = Visibility.Visible;
+        }
+
         private void lnkGoHome_Click(object sender, RoutedEventArgs e)
         {
             HideAllPanels();

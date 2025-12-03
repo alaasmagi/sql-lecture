@@ -8,7 +8,7 @@
         ResizeMode="NoResize"
         Title="TalTech ÕIS v0.1 :)" Height="450" Width="1160">
     <Grid>
-        <StackPanel Name="pnlInitialView" Visibility="Hidden">
+        <StackPanel Name="pnlInitialView" Visibility="Visible">
             <TabControl>
                 <TabItem Header="Õppekavad">
                     <Grid Margin="10" Height="370">
@@ -18,7 +18,7 @@
                             <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="Õppekavade loetelu" FontSize="18" FontWeight="Bold"/>
-                        <ListView Grid.Row="1" ItemsSource="{Binding Curriculums}">
+                        <ListView Grid.Row="1" ItemsSource="{Binding Curriculums}" Name="lwCurriculums" MouseDoubleClick="lwCurriculumsDoubleClick">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Õppekava nimi" DisplayMemberBinding="{Binding EtName}" Width="250"/>
@@ -42,7 +42,7 @@
                             <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="Õppeainete loetelu" FontSize="18" FontWeight="Bold"/>
-                        <ListView Grid.Row="1" ItemsSource="{Binding Subjects}">
+                        <ListView Grid.Row="1" ItemsSource="{Binding Subjects}" Name="lwSubjects" MouseDoubleClick="lwSubjectsDoubleClick">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Õppeaine nimi" DisplayMemberBinding="{Binding EtName}" Width="250"/>
