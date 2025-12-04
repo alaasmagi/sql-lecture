@@ -19,7 +19,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Curriculum", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
@@ -83,7 +83,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.CurriculumSubject", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
@@ -97,11 +97,13 @@ namespace Repository.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("created_by");
 
-                    b.Property<Guid>("CurriculumId")
+                    b.Property<string>("CurriculumId")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("curriculum_id");
 
-                    b.Property<Guid>("SubjectId")
+                    b.Property<string>("SubjectId")
+                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("subject_id");
 
@@ -125,7 +127,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Subject", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasColumnName("id");

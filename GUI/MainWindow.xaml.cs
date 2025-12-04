@@ -1,9 +1,11 @@
 ﻿using Domain;
 using Microsoft.Extensions.DependencyInjection;
 using Repository;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -43,14 +45,16 @@ namespace GUI
                                .Cast<EAssessmentForm>()
                                .Select(a => new KeyValuePair<EAssessmentForm, string>(a, Helpers.GetAssessmentFormAsText(a)))
                                .ToList(),
-                
+
                 Curriculums = repository.GetAllCurriculums(),
                 CurrentCurriculum = null,
                 CurrentCurriculumSubjects = null,
+                CurrentCurriculumAvailableSubjects = null,
 
                 Subjects = repository.GetAllSubjects(),
                 CurrentSubject = null,
                 CurrentSubjectCurriculums = null,
+                CurrentSubjectAvailableCurriculums = null
             };
         }
 
@@ -100,6 +104,18 @@ namespace GUI
                 return;
 
             vm.CurrentCurriculum = selected;
+
+            vm.CurrentCurriculumSubjects =
+                new ObservableCollection<Subject>(
+                    repository.GetSubjectsByCurriculum(selected.Id)
+                );
+
+            vm.CurrentCurriculumAvailableSubjects =
+                new ObservableCollection<Subject>(
+                    repository.GetAllSubjects()
+                              .Where(s => !vm.CurrentCurriculumSubjects.Any(cs => cs.Id == s.Id))
+                );
+
             pnlEditCurriculumView.DataContext = vm;
 
             HideAllPanels();
@@ -117,6 +133,18 @@ namespace GUI
                 return;
 
             vm.CurrentSubject = selected;
+
+            vm.CurrentSubjectCurriculums =
+                new ObservableCollection<Curriculum>(
+                    repository.GetCurriculumsBySubject(selected.Id)
+                );
+
+            vm.CurrentSubjectAvailableCurriculums =
+                new ObservableCollection<Curriculum>(
+                    repository.GetAllCurriculums()
+                              .Where(c => !vm.CurrentSubjectCurriculums.Any(sc => sc.Id == c.Id))
+                );
+
             pnlEditSubjectView.DataContext = vm;
 
             HideAllPanels();
@@ -204,6 +232,66 @@ namespace GUI
             LoadInitialData();
             HideAllPanels();
             pnlInitialView.Visibility = Visibility.Visible;
+        }
+
+        private void btnAddSubjectToCurriculum_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ViewModel;
+            if (vm == null) return;
+
+            var currentCurriculum = vm.CurrentCurriculum;
+            var subjectToAdd = lwAvailableSubjects.SelectedItem as Subject;
+
+            if (subjectToAdd == null)
+            {
+                MessageBox.Show("Palun vali õppeaine, mida lisada.");
+                return;
+            }
+
+            repository.AddSubjectToCurriculum(currentCurriculum.Id, subjectToAdd.Id);
+
+            vm.CurrentCurriculumSubjects =
+               new ObservableCollection<Subject>(
+                   repository.GetSubjectsByCurriculum(currentCurriculum.Id)
+               );
+
+            vm.CurrentCurriculumAvailableSubjects =
+                new ObservableCollection<Subject>(
+                    repository.GetAllSubjects()
+                              .Where(s => !vm.CurrentCurriculumSubjects.Any(cs => cs.Id == s.Id))
+                );
+
+            pnlEditCurriculumView.DataContext = vm;
+        }
+
+        private void btnRemoveSubjectFromCurriculum_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = DataContext as ViewModel;
+            if (vm == null) return;
+
+            var currentCurriculum = vm.CurrentCurriculum;
+            var subjectToRemove = lwCurrentCurriculumSubjects.SelectedItem as Subject;
+
+            if (subjectToRemove == null)
+            {
+                MessageBox.Show("Palun vali õppeaine, mida lisada.");
+                return;
+            }
+
+            repository.RemoveSubjectFromCurriculum(currentCurriculum.Id, subjectToRemove.Id);
+
+            vm.CurrentCurriculumSubjects =
+               new ObservableCollection<Subject>(
+                   repository.GetSubjectsByCurriculum(currentCurriculum.Id)
+               );
+
+            vm.CurrentCurriculumAvailableSubjects =
+                new ObservableCollection<Subject>(
+                    repository.GetAllSubjects()
+                              .Where(s => !vm.CurrentCurriculumSubjects.Any(cs => cs.Id == s.Id))
+                );
+
+            pnlEditCurriculumView.DataContext = vm;
         }
 
         private void lnkGoHome_Click(object sender, RoutedEventArgs e)

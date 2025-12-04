@@ -4,6 +4,8 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
 
 namespace Domain
 {
@@ -52,5 +54,11 @@ namespace Domain
                     return language.ToString();
             }
         }
+
+        public static ValueConverter<Guid, string> GuidToLowerString()
+            => new ValueConverter<Guid, string>(
+                v => v.ToString("D").ToLowerInvariant(), 
+                s => Guid.Parse(s)                       
+            );
     }
 }

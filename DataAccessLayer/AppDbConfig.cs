@@ -10,7 +10,7 @@ public class CurriculumConfig : IEntityTypeConfiguration<Curriculum>
     {
         entity.ToTable("curriculums");
 
-        entity.Property(e => e.Id).HasColumnName("id");
+        entity.Property(e => e.Id).HasConversion(Helpers.GuidToLowerString()).HasColumnName("id").HasColumnType("TEXT");
         entity.Property(e => e.CreatedBy).HasColumnName("created_by");
         entity.Property(e => e.CreatedAt).HasColumnName("created_at");
         entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
@@ -33,7 +33,7 @@ public class SubjectConfig : IEntityTypeConfiguration<Subject>
     {
         entity.ToTable("subjects");
 
-        entity.Property(e => e.Id).HasColumnName("id");
+        entity.Property(e => e.Id).HasConversion(Helpers.GuidToLowerString()).HasColumnName("id").HasColumnType("TEXT");
         entity.Property(e => e.CreatedBy).HasColumnName("created_by");
         entity.Property(e => e.CreatedAt).HasColumnName("created_at");
         entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
@@ -55,12 +55,12 @@ public class CurriculumSubjectConfig : IEntityTypeConfiguration<CurriculumSubjec
     {
         entity.ToTable("curriculum_subjects");
 
-        entity.Property(e => e.Id).HasColumnName("id");
+        entity.Property(e => e.Id).HasConversion(Helpers.GuidToLowerString()).HasColumnName("id").HasColumnType("TEXT");
         entity.Property(e => e.CreatedBy).HasColumnName("created_by");
         entity.Property(e => e.CreatedAt).HasColumnName("created_at");
         entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
-        entity.Property(e => e.CurriculumId).HasColumnName("curriculum_id");
-        entity.Property(e => e.SubjectId).HasColumnName("subject_id");
+        entity.Property(e => e.CurriculumId).HasConversion(Helpers.GuidToLowerString()).HasColumnName("curriculum_id");
+        entity.Property(e => e.SubjectId).HasConversion(Helpers.GuidToLowerString()).HasColumnName("subject_id");
     }
 }
