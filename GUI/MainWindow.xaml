@@ -224,10 +224,10 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Label Grid.Row="5" Grid.Column="0" Margin="0,0,0,15" Content="Õppekava maht (EAP):" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="5" Grid.Column="1" Margin="0,0,0,15" Text="{Binding CurrentCurriculum.EapVolume}" />
-                    <Label Grid.Row="6" Grid.Column="0" Margin="0,0,0,15" Content="Õppetöö keel:" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="6" Grid.Column="1" Margin="0,0,0,15" ItemsSource="{Binding Languages}" SelectedValuePath="Key" SelectedValue="{Binding CurrentCurriculum.Language, Mode=TwoWay}">
+                    <Label Grid.Row="5" Grid.Column="1" Margin="0,0,0,15" Content="Õppekava maht (EAP):" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="5" Grid.Column="2" Margin="0,0,0,15" Text="{Binding CurrentCurriculum.EapVolume}" />
+                    <Label Grid.Row="6" Grid.Column="1" Margin="0,0,0,15" Content="Õppetöö keel:" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Row="6" Grid.Column="2" Margin="0,0,0,15" ItemsSource="{Binding Languages}" SelectedValuePath="Key" SelectedValue="{Binding CurrentCurriculum.Language, Mode=TwoWay}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Value}"/>
