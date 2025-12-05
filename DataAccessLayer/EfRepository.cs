@@ -6,13 +6,31 @@ public class EfRepository(AppDbContext db) : IRepository
     public bool CreateCurriculum(Curriculum curriculum)
     {
         db.Curriculums.Add(curriculum);
-        return db.SaveChanges() > 0;
+
+        try
+        {
+            var status = db.SaveChanges() > 0;
+            return status;
+        }
+        catch 
+        { 
+            return false;
+        }
     }
 
     public bool CreateSubject(Subject subject)
     {
         db.Subjects.Add(subject);
-        return db.SaveChanges() > 0;
+
+        try
+        {
+            var status = db.SaveChanges() > 0;
+            return status;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public Curriculum? GetCurriculumById(Guid curriculumId)
@@ -64,8 +82,19 @@ public class EfRepository(AppDbContext db) : IRepository
         var existing = db.Curriculums.FirstOrDefault(c => c.Id == curriculumId);
         if (existing == null) return false;
 
+        curriculum.UpdatedAt = DateTime.UtcNow;
+        curriculum.UpdatedBy = Helpers.AppName;
         db.Entry(existing).CurrentValues.SetValues(curriculum);
-        return db.SaveChanges() > 0;
+
+        try
+        {
+            var status = db.SaveChanges() > 0;
+            return status;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public bool UpdateSubject(Guid subjectId, Subject subject)
@@ -73,8 +102,19 @@ public class EfRepository(AppDbContext db) : IRepository
         var existing = db.Subjects.FirstOrDefault(s => s.Id == subjectId);
         if (existing == null) return false;
 
+        subject.UpdatedAt = DateTime.UtcNow;
+        subject.UpdatedBy = Helpers.AppName;
         db.Entry(existing).CurrentValues.SetValues(subject);
-        return db.SaveChanges() > 0;
+        
+        try
+        {
+            var status = db.SaveChanges() > 0;
+            return status;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public bool AddSubjectToCurriculum(Guid curriculumId, Guid subjectId)
@@ -86,18 +126,22 @@ public class EfRepository(AppDbContext db) : IRepository
         if (exists) return false;
 
         var cs = new CurriculumSubject
-        {
-            Id = Guid.NewGuid(),
+        { 
             CurriculumId = curriculumId,
             SubjectId = subjectId,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow,
-            CreatedBy = "system",
-            UpdatedBy = "system"
         };
 
         db.CurriculumSubjects.Add(cs);
-        return db.SaveChanges() > 0;
+        
+        try
+        {
+            var status = db.SaveChanges() > 0;
+            return status;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public bool RemoveSubjectFromCurriculum(Guid curriculumId, Guid subjectId)
@@ -109,7 +153,16 @@ public class EfRepository(AppDbContext db) : IRepository
         if (cs == null) return false;
 
         db.CurriculumSubjects.Remove(cs);
-        return db.SaveChanges() > 0;
+        
+        try
+        {
+            var status = db.SaveChanges() > 0;
+            return status;
+        }
+        catch
+        {
+            return false;
+        }
     }
     
 
@@ -119,7 +172,16 @@ public class EfRepository(AppDbContext db) : IRepository
         if (curriculum == null) return false;
 
         db.Curriculums.Remove(curriculum);
-        return db.SaveChanges() > 0;
+        
+        try
+        {
+            var status = db.SaveChanges() > 0;
+            return status;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public bool DeleteSubject(Guid subjectId)
@@ -128,6 +190,15 @@ public class EfRepository(AppDbContext db) : IRepository
         if (subject == null) return false;
 
         db.Subjects.Remove(subject);
-        return db.SaveChanges() > 0;
+
+        try
+        {
+            var status = db.SaveChanges() > 0;
+            return status;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

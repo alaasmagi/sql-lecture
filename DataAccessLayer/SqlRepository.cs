@@ -19,24 +19,31 @@ public class SqlRepository(string connectionString) : IRepository
             ($id, $code, $sl, $et, $en, $mgr, $lang, $eap, $cby, $cat, $uby, $uat);
         ";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$id", curriculum.Id.ToString());
-        cmd.Parameters.AddWithValue("$code", curriculum.Code);
-        cmd.Parameters.AddWithValue("$sl", curriculum.StudyLevel);
-        cmd.Parameters.AddWithValue("$et", curriculum.EtName);
-        cmd.Parameters.AddWithValue("$en", curriculum.EnName);
-        cmd.Parameters.AddWithValue("$mgr", curriculum.ManagerName ?? (object)DBNull.Value);
-        cmd.Parameters.AddWithValue("$lang", curriculum.Language);
-        cmd.Parameters.AddWithValue("$eap", curriculum.EapVolume);
-        cmd.Parameters.AddWithValue("$cby", curriculum.CreatedBy);
-        cmd.Parameters.AddWithValue("$cat", curriculum.CreatedAt);
-        cmd.Parameters.AddWithValue("$uby", curriculum.UpdatedBy);
-        cmd.Parameters.AddWithValue("$uat", curriculum.UpdatedAt);
+            cmd.Parameters.AddWithValue("$id", curriculum.Id.ToString());
+            cmd.Parameters.AddWithValue("$code", curriculum.Code);
+            cmd.Parameters.AddWithValue("$sl", curriculum.StudyLevel);
+            cmd.Parameters.AddWithValue("$et", curriculum.EtName);
+            cmd.Parameters.AddWithValue("$en", curriculum.EnName);
+            cmd.Parameters.AddWithValue("$mgr", curriculum.ManagerName ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("$lang", curriculum.Language);
+            cmd.Parameters.AddWithValue("$eap", curriculum.EapVolume);
+            cmd.Parameters.AddWithValue("$cby", curriculum.CreatedBy);
+            cmd.Parameters.AddWithValue("$cat", curriculum.CreatedAt);
+            cmd.Parameters.AddWithValue("$uby", curriculum.UpdatedBy);
+            cmd.Parameters.AddWithValue("$uat", curriculum.UpdatedAt);
 
-        conn.Open();
-        return cmd.ExecuteNonQuery() > 0;
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        } 
+        catch
+        {
+            return false;
+        }
     }
 
     public bool CreateSubject(Subject subject)
@@ -49,23 +56,30 @@ public class SqlRepository(string connectionString) : IRepository
             ($id, $code, $et, $en, $teacher, $eap, $form, $cby, $cat, $uby, $uat);
         ";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$id", subject.Id.ToString());
-        cmd.Parameters.AddWithValue("$code", subject.Code);
-        cmd.Parameters.AddWithValue("$et", subject.EtName);
-        cmd.Parameters.AddWithValue("$en", subject.EnName);
-        cmd.Parameters.AddWithValue("$teacher", subject.TeacherName ?? null);
-        cmd.Parameters.AddWithValue("$eap", subject.EapVolume);
-        cmd.Parameters.AddWithValue("$form", subject.AssessmentForm);
-        cmd.Parameters.AddWithValue("$cby", subject.CreatedBy);
-        cmd.Parameters.AddWithValue("$cat", subject.CreatedAt);
-        cmd.Parameters.AddWithValue("$uby", subject.UpdatedBy);
-        cmd.Parameters.AddWithValue("$uat", subject.UpdatedAt);
+            cmd.Parameters.AddWithValue("$id", subject.Id.ToString());
+            cmd.Parameters.AddWithValue("$code", subject.Code);
+            cmd.Parameters.AddWithValue("$et", subject.EtName);
+            cmd.Parameters.AddWithValue("$en", subject.EnName);
+            cmd.Parameters.AddWithValue("$teacher", subject.TeacherName ?? null);
+            cmd.Parameters.AddWithValue("$eap", subject.EapVolume);
+            cmd.Parameters.AddWithValue("$form", subject.AssessmentForm);
+            cmd.Parameters.AddWithValue("$cby", subject.CreatedBy);
+            cmd.Parameters.AddWithValue("$cat", subject.CreatedAt);
+            cmd.Parameters.AddWithValue("$uby", subject.UpdatedBy);
+            cmd.Parameters.AddWithValue("$uat", subject.UpdatedAt);
 
-        conn.Open();
-        return cmd.ExecuteNonQuery() > 0;
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch 
+        {
+            return false;
+        }
     }
 
     public Curriculum? GetCurriculumById(Guid curriculumId)
@@ -188,22 +202,29 @@ public class SqlRepository(string connectionString) : IRepository
             WHERE id=$id;
         ";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$id", curriculumId.ToString());
-        cmd.Parameters.AddWithValue("$code", c.Code);
-        cmd.Parameters.AddWithValue("$sl", (int)c.StudyLevel);
-        cmd.Parameters.AddWithValue("$et", c.EtName);
-        cmd.Parameters.AddWithValue("$en", c.EnName);
-        cmd.Parameters.AddWithValue("$mgr", c.ManagerName ?? (object)DBNull.Value);
-        cmd.Parameters.AddWithValue("$lang", c.Language);
-        cmd.Parameters.AddWithValue("$eap", c.EapVolume);
-        cmd.Parameters.AddWithValue("$uby", c.UpdatedBy);
-        cmd.Parameters.AddWithValue("$uat", c.UpdatedAt);
+            cmd.Parameters.AddWithValue("$id", curriculumId.ToString());
+            cmd.Parameters.AddWithValue("$code", c.Code);
+            cmd.Parameters.AddWithValue("$sl", (int)c.StudyLevel);
+            cmd.Parameters.AddWithValue("$et", c.EtName);
+            cmd.Parameters.AddWithValue("$en", c.EnName);
+            cmd.Parameters.AddWithValue("$mgr", c.ManagerName ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("$lang", c.Language);
+            cmd.Parameters.AddWithValue("$eap", c.EapVolume);
+            cmd.Parameters.AddWithValue("$uby", Helpers.AppName);
+            cmd.Parameters.AddWithValue("$uat", DateTime.UtcNow);
 
-        conn.Open();
-        return cmd.ExecuteNonQuery() > 0;
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public bool UpdateSubject(Guid subjectId, Subject s)
@@ -226,8 +247,8 @@ public class SqlRepository(string connectionString) : IRepository
         cmd.Parameters.AddWithValue("$teacher", s.TeacherName ?? (object)DBNull.Value);
         cmd.Parameters.AddWithValue("$eap", s.EapVolume);
         cmd.Parameters.AddWithValue("$form", (int)s.AssessmentForm);
-        cmd.Parameters.AddWithValue("$uby", s.UpdatedBy);
-        cmd.Parameters.AddWithValue("$uat", s.UpdatedAt);
+        cmd.Parameters.AddWithValue("$uby", Helpers.AppName);
+        cmd.Parameters.AddWithValue("$uat", DateTime.UtcNow);
 
         conn.Open();
         return cmd.ExecuteNonQuery() > 0;
@@ -238,18 +259,27 @@ public class SqlRepository(string connectionString) : IRepository
         const string sql = @"
             INSERT INTO curriculum_subjects
             (id, curriculum_id, subject_id, created_by, created_at, updated_by, updated_at)
-            VALUES ($id, $cid, $sid, 'sys', CURRENT_TIMESTAMP, 'sys', CURRENT_TIMESTAMP)
+            VALUES ($id, $cid, $sid, $timestamp, $creator, $timestamp, $creator)
         ";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$id", Guid.NewGuid().ToString());
-        cmd.Parameters.AddWithValue("$cid", curriculumId.ToString());
-        cmd.Parameters.AddWithValue("$sid", subjectId.ToString());
+            cmd.Parameters.AddWithValue("$id", Guid.NewGuid().ToString());
+            cmd.Parameters.AddWithValue("$cid", curriculumId.ToString());
+            cmd.Parameters.AddWithValue("$sid", subjectId.ToString());
+            cmd.Parameters.AddWithValue("$timestamp", DateTime.UtcNow);
+            cmd.Parameters.AddWithValue("$creator", Helpers.AppName);
 
-        conn.Open();
-        return cmd.ExecuteNonQuery() > 0;
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public bool RemoveSubjectFromCurriculum(Guid curriculumId, Guid subjectId)
@@ -259,38 +289,59 @@ public class SqlRepository(string connectionString) : IRepository
             WHERE curriculum_id=$cid AND subject_id=$sid;
         ";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$cid", curriculumId.ToString());
-        cmd.Parameters.AddWithValue("$sid", subjectId.ToString());
+            cmd.Parameters.AddWithValue("$cid", curriculumId.ToString());
+            cmd.Parameters.AddWithValue("$sid", subjectId.ToString());
 
-        conn.Open();
-        return cmd.ExecuteNonQuery() > 0;
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch
+        {
+            return false;
+        }
     }
     
     public bool DeleteCurriculum(Guid id)
     {
         const string sql = "DELETE FROM curriculums WHERE id=$id";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
-        cmd.Parameters.AddWithValue("$id", id.ToString());
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
+            cmd.Parameters.AddWithValue("$id", id.ToString());
 
-        conn.Open();
-        return cmd.ExecuteNonQuery() > 0;
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public bool DeleteSubject(Guid id)
     {
         const string sql = "DELETE FROM subjects WHERE id=$id";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
-        cmd.Parameters.AddWithValue("$id", id.ToString());
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
+            cmd.Parameters.AddWithValue("$id", id.ToString());
 
-        conn.Open();
-        return cmd.ExecuteNonQuery() > 0;
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch
+        {
+            return false;
+        }
     }
     
     

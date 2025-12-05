@@ -11,6 +11,7 @@ namespace Domain
 {
     public class Helpers
     {
+        public static string AppName = "ois v0.1";
         public static string GetStudyLevelAsText(EStudyLevel level)
         {
             switch (level)

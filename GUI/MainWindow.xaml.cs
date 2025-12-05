@@ -158,7 +158,13 @@ namespace GUI
 
             var newCurriculum = vm.CurrentCurriculum;
 
-            repository.CreateCurriculum(newCurriculum);
+            var status = repository.CreateCurriculum(newCurriculum);
+
+            if (status == false)
+            {
+                MessageBox.Show("Õppekava lisamine ebaõnnestus. Kontrolli õppekava koodi unikaalsust ja õppekava mahtu!", "Tõrge", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             LoadInitialData();
             HideAllPanels();
@@ -172,7 +178,13 @@ namespace GUI
 
             var curriculumToEdit = vm.CurrentCurriculum;
 
-            repository.UpdateCurriculum(curriculumToEdit.Id, curriculumToEdit);
+            var status = repository.UpdateCurriculum(curriculumToEdit.Id, curriculumToEdit);
+            
+            if (status == false)
+            {
+                MessageBox.Show("Õppekava muutmine ebaõnnestus. Kontrolli õppekava koodi unikaalsust ja õppekava mahtu!", "Tõrge", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             LoadInitialData();
             HideAllPanels();
@@ -200,7 +212,13 @@ namespace GUI
 
             var newSubject = vm.CurrentSubject;
 
-            repository.CreateSubject(newSubject);
+            var status = repository.CreateSubject(newSubject);
+
+            if (status == false)
+            {
+                MessageBox.Show("Õppeaine lisamine ebaõnnestus. Kontrolli Õppeaine koodi unikaalsust ja Õppeaine mahtu!", "Tõrge", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             LoadInitialData();
             HideAllPanels();
@@ -214,7 +232,13 @@ namespace GUI
 
             var subjectToEdit = vm.CurrentSubject;
 
-            repository.UpdateSubject(subjectToEdit.Id, subjectToEdit);
+            var status = repository.UpdateSubject(subjectToEdit.Id, subjectToEdit);
+
+            if (status == false)
+            {
+                MessageBox.Show("Õppeaine muutmine ebaõnnestus. Kontrolli Õppeaine koodi unikaalsust ja Õppeaine mahtu!", "Tõrge", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             LoadInitialData();
             HideAllPanels();
@@ -244,7 +268,7 @@ namespace GUI
 
             if (subjectToAdd == null)
             {
-                MessageBox.Show("Palun vali õppeaine, mida lisada.");
+                MessageBox.Show("Palun vali õppeaine, mida lisada.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -274,7 +298,7 @@ namespace GUI
 
             if (subjectToRemove == null)
             {
-                MessageBox.Show("Palun vali õppeaine, mida lisada.");
+                MessageBox.Show("Palun vali õppeaine, mida lisada.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
