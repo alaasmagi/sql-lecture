@@ -36,7 +36,7 @@ public class EfRepository(AppDbContext db) : IRepository
     public Curriculum? GetCurriculumById(Guid curriculumId)
     {
         return db.Curriculums
-            .FirstOrDefault(c => c.Id == curriculumId || c.Id == curriculumId);
+            .FirstOrDefault(c => c.Id == curriculumId);
     }
 
     public List<Curriculum> GetAllCurriculums()
@@ -58,7 +58,7 @@ public class EfRepository(AppDbContext db) : IRepository
     public Subject? GetSubjectById(Guid subjectId)
     {
         return db.Subjects
-            .FirstOrDefault(s => s.Id == subjectId || s.Id == subjectId);
+            .FirstOrDefault(s => s.Id == subjectId);
     }
 
     public List<Subject> GetAllSubjects()

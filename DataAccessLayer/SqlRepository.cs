@@ -86,31 +86,45 @@ public class SqlRepository(string connectionString) : IRepository
     {
         const string sql = "SELECT * FROM curriculums WHERE id = $id";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$id", curriculumId);
+            cmd.Parameters.AddWithValue("$id", curriculumId);
 
-        conn.Open();
-        using var reader = cmd.ExecuteReader();
-        return reader.Read() ? MapCurriculum(reader) : null;
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
+            return reader.Read() ? MapCurriculum(reader) : null;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public List<Curriculum> GetAllCurriculums()
     {
         const string sql = "SELECT * FROM curriculums";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        conn.Open();
-        using var reader = cmd.ExecuteReader();
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
 
-        var list = new List<Curriculum>();
-        while (reader.Read())
-            list.Add(MapCurriculum(reader));
+            var list = new List<Curriculum>();
+            while (reader.Read())
+                list.Add(MapCurriculum(reader));
 
-        return list;
+            return list;
+        }
+        catch
+        {
+            return new List<Curriculum>();
+        } 
     }
 
     public List<Curriculum> GetCurriculumsBySubject(Guid subjectId)
@@ -122,50 +136,71 @@ public class SqlRepository(string connectionString) : IRepository
             WHERE cs.subject_id = $sid;
         ";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$sid", subjectId.ToString());
+            cmd.Parameters.AddWithValue("$sid", subjectId.ToString());
 
-        conn.Open();
-        using var reader = cmd.ExecuteReader();
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
 
-        var list = new List<Curriculum>();
-        while (reader.Read())
-            list.Add(MapCurriculum(reader));
+            var list = new List<Curriculum>();
+            while (reader.Read())
+                list.Add(MapCurriculum(reader));
 
-        return list;
+            return list;
+        }
+        catch
+        {
+            return new List<Curriculum>();
+        }
     }
 
     public Subject? GetSubjectById(Guid subjectId)
     {
         const string sql = "SELECT * FROM subjects WHERE id = $id";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$id", subjectId);
+            cmd.Parameters.AddWithValue("$id", subjectId);
 
-        conn.Open();
-        using var reader = cmd.ExecuteReader();
-        return reader.Read() ? MapSubject(reader) : null;
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
+            return reader.Read() ? MapSubject(reader) : null;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public List<Subject> GetAllSubjects()
     {
         const string sql = "SELECT * FROM subjects";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        conn.Open();
-        using var reader = cmd.ExecuteReader();
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
 
-        var list = new List<Subject>();
-        while (reader.Read())
-            list.Add(MapSubject(reader));
+            var list = new List<Subject>();
+            while (reader.Read())
+                list.Add(MapSubject(reader));
 
-        return list;
+            return list;
+        }
+        catch
+        {
+            return new List<Subject>();
+        }
     }
 
     public List<Subject> GetSubjectsByCurriculum(Guid curriculumId)
@@ -177,19 +212,26 @@ public class SqlRepository(string connectionString) : IRepository
             WHERE cs.curriculum_id = $cid;
         ";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$cid", curriculumId.ToString());
+            cmd.Parameters.AddWithValue("$cid", curriculumId.ToString());
 
-        conn.Open();
-        using var reader = cmd.ExecuteReader();
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
 
-        var list = new List<Subject>();
-        while (reader.Read())
-            list.Add(MapSubject(reader));
+            var list = new List<Subject>();
+            while (reader.Read())
+                list.Add(MapSubject(reader));
 
-        return list;
+            return list;
+        }
+        catch
+        {
+            return new List<Subject>();
+        }
     }
     
     public bool UpdateCurriculum(Guid curriculumId, Curriculum c)
@@ -237,21 +279,28 @@ public class SqlRepository(string connectionString) : IRepository
             WHERE id=$id;
         ";
 
-        using var conn = GetConnection();
-        using var cmd = new SqliteCommand(sql, conn);
+        try
+        {
+            using var conn = GetConnection();
+            using var cmd = new SqliteCommand(sql, conn);
 
-        cmd.Parameters.AddWithValue("$id", subjectId.ToString());
-        cmd.Parameters.AddWithValue("$code", s.Code);
-        cmd.Parameters.AddWithValue("$et", s.EtName);
-        cmd.Parameters.AddWithValue("$en", s.EnName);
-        cmd.Parameters.AddWithValue("$teacher", s.TeacherName ?? (object)DBNull.Value);
-        cmd.Parameters.AddWithValue("$eap", s.EapVolume);
-        cmd.Parameters.AddWithValue("$form", (int)s.AssessmentForm);
-        cmd.Parameters.AddWithValue("$uby", Helpers.AppName);
-        cmd.Parameters.AddWithValue("$uat", DateTime.UtcNow);
+            cmd.Parameters.AddWithValue("$id", subjectId.ToString());
+            cmd.Parameters.AddWithValue("$code", s.Code);
+            cmd.Parameters.AddWithValue("$et", s.EtName);
+            cmd.Parameters.AddWithValue("$en", s.EnName);
+            cmd.Parameters.AddWithValue("$teacher", s.TeacherName ?? (object)DBNull.Value);
+            cmd.Parameters.AddWithValue("$eap", s.EapVolume);
+            cmd.Parameters.AddWithValue("$form", (int)s.AssessmentForm);
+            cmd.Parameters.AddWithValue("$uby", Helpers.AppName);
+            cmd.Parameters.AddWithValue("$uat", DateTime.UtcNow);
 
-        conn.Open();
-        return cmd.ExecuteNonQuery() > 0;
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public bool AddSubjectToCurriculum(Guid curriculumId, Guid subjectId)
