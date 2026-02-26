@@ -64,3 +64,5 @@ public class CurriculumSubjectConfig : IEntityTypeConfiguration<CurriculumSubjec
         entity.Property(e => e.SubjectId).HasConversion(Helpers.GuidToLowerString()).HasColumnName("subject_id");
     }
 }
+
+
