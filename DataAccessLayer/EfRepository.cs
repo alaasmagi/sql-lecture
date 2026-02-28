@@ -117,22 +117,9 @@ public class EfRepository(AppDbContext db) : IRepository
         }
     }
 
-    public bool AddSubjectToCurriculum(Guid curriculumId, Guid subjectId)
+    public bool AddSubjectToCurriculum(CurriculumSubject curriculumSubject)
     {
-        bool exists = db.CurriculumSubjects.Any(cs =>
-            cs.CurriculumId == curriculumId &&
-            cs.SubjectId == subjectId);
-
-        if (exists) return false;
-
-        var cs = new CurriculumSubject
-        { 
-            CurriculumId = curriculumId,
-            SubjectId = subjectId,
-        };
-
-        db.CurriculumSubjects.Add(cs);
-        
+        db.CurriculumSubjects.Add(curriculumSubject);
         try
         {
             var status = db.SaveChanges() > 0;

@@ -234,7 +234,7 @@ public class SqlRepository(string connectionString) : IRepository
         }
     }
     
-    public bool UpdateCurriculum(Guid curriculumId, Curriculum c)
+    public bool UpdateCurriculum(Guid curriculumId, Curriculum curriculum)
     {
         const string sql = @"
             UPDATE curriculums
@@ -250,13 +250,13 @@ public class SqlRepository(string connectionString) : IRepository
             using var cmd = new SqliteCommand(sql, conn);
 
             cmd.Parameters.AddWithValue("$id", curriculumId.ToString());
-            cmd.Parameters.AddWithValue("$code", c.Code);
-            cmd.Parameters.AddWithValue("$sl", (int)c.StudyLevel);
-            cmd.Parameters.AddWithValue("$et", c.EtName);
-            cmd.Parameters.AddWithValue("$en", c.EnName);
-            cmd.Parameters.AddWithValue("$mgr", c.ManagerName ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("$lang", c.Language);
-            cmd.Parameters.AddWithValue("$eap", c.EapVolume);
+            cmd.Parameters.AddWithValue("$code", curriculum.Code);
+            cmd.Parameters.AddWithValue("$sl", (int)curriculum.StudyLevel);
+            cmd.Parameters.AddWithValue("$et", curriculum.EtName);
+            cmd.Parameters.AddWithValue("$en", curriculum.EnName);
+            cmd.Parameters.AddWithValue("$mgr", curriculum.ManagerName ?? null);
+            cmd.Parameters.AddWithValue("$lang", curriculum.Language);
+            cmd.Parameters.AddWithValue("$eap", curriculum.EapVolume);
             cmd.Parameters.AddWithValue("$uby", Helpers.AppName);
             cmd.Parameters.AddWithValue("$uat", DateTime.UtcNow);
 
@@ -269,7 +269,7 @@ public class SqlRepository(string connectionString) : IRepository
         }
     }
 
-    public bool UpdateSubject(Guid subjectId, Subject s)
+    public bool UpdateSubject(Guid subjectId, Subject subject)
     {
         const string sql = @"
             UPDATE subjects
@@ -285,12 +285,12 @@ public class SqlRepository(string connectionString) : IRepository
             using var cmd = new SqliteCommand(sql, conn);
 
             cmd.Parameters.AddWithValue("$id", subjectId.ToString());
-            cmd.Parameters.AddWithValue("$code", s.Code);
-            cmd.Parameters.AddWithValue("$et", s.EtName);
-            cmd.Parameters.AddWithValue("$en", s.EnName);
-            cmd.Parameters.AddWithValue("$teacher", s.TeacherName ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("$eap", s.EapVolume);
-            cmd.Parameters.AddWithValue("$form", (int)s.AssessmentForm);
+            cmd.Parameters.AddWithValue("$code", subject.Code);
+            cmd.Parameters.AddWithValue("$et", subject.EtName);
+            cmd.Parameters.AddWithValue("$en", subject.EnName);
+            cmd.Parameters.AddWithValue("$teacher", subject.TeacherName ?? null);
+            cmd.Parameters.AddWithValue("$eap", subject.EapVolume);
+            cmd.Parameters.AddWithValue("$form", (int)subject.AssessmentForm);
             cmd.Parameters.AddWithValue("$uby", Helpers.AppName);
             cmd.Parameters.AddWithValue("$uat", DateTime.UtcNow);
 
@@ -303,12 +303,12 @@ public class SqlRepository(string connectionString) : IRepository
         }
     }
 
-    public bool AddSubjectToCurriculum(Guid curriculumId, Guid subjectId)
+    public bool AddSubjectToCurriculum(CurriculumSubject curriculumSubject)
     {
         const string sql = @"
             INSERT INTO curriculum_subjects
             (id, curriculum_id, subject_id, created_by, created_at, updated_by, updated_at)
-            VALUES ($id, $cid, $sid, $timestamp, $creator, $timestamp, $creator)
+            VALUES ($id, $cid, $sid, $cby, $cat, $uby, $uat)
         ";
 
         try
@@ -316,11 +316,13 @@ public class SqlRepository(string connectionString) : IRepository
             using var conn = GetConnection();
             using var cmd = new SqliteCommand(sql, conn);
 
-            cmd.Parameters.AddWithValue("$id", Guid.NewGuid().ToString());
-            cmd.Parameters.AddWithValue("$cid", curriculumId.ToString());
-            cmd.Parameters.AddWithValue("$sid", subjectId.ToString());
-            cmd.Parameters.AddWithValue("$timestamp", DateTime.UtcNow);
-            cmd.Parameters.AddWithValue("$creator", Helpers.AppName);
+            cmd.Parameters.AddWithValue("$id", curriculumSubject.Id.ToString());
+            cmd.Parameters.AddWithValue("$cid", curriculumSubject.CurriculumId.ToString());
+            cmd.Parameters.AddWithValue("$sid", curriculumSubject.SubjectId.ToString());
+            cmd.Parameters.AddWithValue("$cby", curriculumSubject.CreatedBy);
+            cmd.Parameters.AddWithValue("$cat", curriculumSubject.CreatedAt);
+            cmd.Parameters.AddWithValue("$uby", curriculumSubject.UpdatedBy);
+            cmd.Parameters.AddWithValue("$uat", curriculumSubject.UpdatedAt);
 
             conn.Open();
             return cmd.ExecuteNonQuery() > 0;

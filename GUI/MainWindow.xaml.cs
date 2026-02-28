@@ -272,7 +272,13 @@ namespace GUI
                 return;
             }
 
-            repository.AddSubjectToCurriculum(currentCurriculum.Id, subjectToAdd.Id);
+            var curriculumSubject = new CurriculumSubject
+            {
+                CurriculumId = currentCurriculum.Id,
+                SubjectId = subjectToAdd.Id
+            };
+
+            repository.AddSubjectToCurriculum(curriculumSubject);
 
             vm.CurrentCurriculumSubjects =
                new ObservableCollection<Subject>(
