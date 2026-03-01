@@ -259,6 +259,7 @@ namespace GUI
 
             var subjectToDelete = vm.CurrentSubject;
 
+            // TODO: Use DeleteSubject() to delete the subject and then uncomment the code block below
             repository.DeleteSubject(subjectToDelete.Id);
 
             LoadInitialData();
